@@ -1,5 +1,6 @@
 import gmpy2
 import multiprocessing
+
 N = 10 ** 17
 is_prime = gmpy2.is_prime
 
@@ -23,7 +24,7 @@ def recurr(start_from, N=N):
     if is_prime(start_from):
         if is_strong_harshad_number(start_from / 10):
             sum += start_from
-            #print start_from
+            # print start_from
     if not is_harshad_number(start_from):
         return sum
     for i in range(10):
@@ -32,12 +33,11 @@ def recurr(start_from, N=N):
 
 
 def main(N):
-
     p = multiprocessing.Pool()
-    rets = p.map(recurr,range(1,10))
+    rets = p.map(recurr, range(1, 10))
     s = sum(rets)
     print '-' * 30
-    print s,'N=',N
+    print s, 'N=', N
 
 
 if __name__ == '__main__':

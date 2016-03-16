@@ -23,7 +23,7 @@ def recurr(start_from, N=N):
     if is_prime(start_from):
         if is_strong_harshad_number(start_from / 10):
             sum += start_from
-            #print start_from
+            # print start_from
     if not is_harshad_number(start_from):
         return sum
     for i in range(10):
@@ -36,7 +36,7 @@ def main(N):
     for i in range(1, 10):
         sum += recurr(i)
     print '-' * 30
-    print sum,'N=',N
+    print sum, 'N=', N
 
 
 if __name__ == '__main__':
