@@ -1,8 +1,22 @@
 from eulertools import square_sum_of_digits
 
+'''
+performance:
+well, with the square sum of digits function written in c:
+real	0m17.096s
+user	0m16.499s
+sys	0m0.537s
 
-# def square_sum_of_digits(x):
-#     return sum([int(i) ** 2 for i in str(x)])
+and for this function written in python:
+def square_sum_of_digits(x):
+    return sum([int(i) ** 2 for i in str(x)])
+
+{1: 1418853, 89: 8581146}
+
+real	1m47.491s
+user	1m46.454s
+sys	0m0.764s
+'''
 
 
 def is_89_or_1(n):
