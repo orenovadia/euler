@@ -1,9 +1,14 @@
-from math import sqrt, factorial
-from bisect import bisect
 import ctypes
-#gcc -Wall -Wextra -O -ansi -pedantic -shared euler_c.c -o euler_c.so
+from bisect import bisect
+from math import sqrt, factorial
+
+# gcc -Wall -Wextra -O -ansi -pedantic -shared euler_c.c -o euler_c.so
 c = ctypes.cdll.LoadLibrary('euler_c.so')
 square_sum_of_digits = c.square_sum_of_digits
+
+
+def sum_of_digits(n):
+    return sum(int(i) for i in str(n))
 
 
 def divisorGenerator(n_n):
@@ -81,7 +86,7 @@ def primes2(n_n):
             k = 3 * i + 1 | 1
             sieve[k * k / 3::2 * k] = [False] * ((n_n / 6 - k * k / 6 - 1) / k + 1)
             sieve[k * (k - 2 * (i & 1) + 4) / 3::2 * k] = [False] * (
-            (n_n / 6 - k * (k - 2 * (i & 1) + 4) / 6 - 1) / k + 1)
+                (n_n / 6 - k * (k - 2 * (i & 1) + 4) / 6 - 1) / k + 1)
     return [2, 3] + [3 * i + 1 | 1 for i in xrange(1, n_n / 3 - correction) if sieve[i]]
 
 
