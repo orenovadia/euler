@@ -22,8 +22,13 @@ def analyze_number(n):
 
 if __name__ == '__main__':
     numbers = [int(i) for i in sys.argv[1:]]
+    print '%' * 50
     for n in numbers:
         analyze_number(n)
         print '-' * 50
+    print '%' * 50
     for a, b in itertools.combinations(numbers, 2):
-        print 'GCD %-10s %-10s: %s' % (a, b, gmpy2.gcd(a, b))
+        print 'GCD             %-14s %-14s: %s' % (a, b, gmpy2.gcd(a, b))
+        print 'Permutations    %-14s %-14s: %s' % (a, b, eulertools.arePermutations(a, b))
+        print '-' * 50
+    print '%' * 50

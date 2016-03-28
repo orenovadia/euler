@@ -39,7 +39,7 @@ def arePermutations(a, b):
     lb = sorted(str(b))
     for ia, ib in zip(la, lb):
         if ia != ib: return False
-    return True
+    return len(la)==len(lb)
 
 
 def sigma0(n_n):
