@@ -1,6 +1,7 @@
 import ctypes
 from bisect import bisect
 from math import sqrt, factorial
+from random import randint
 
 # gcc -Wall -Wextra -O -ansi -pedantic -shared euler_c.c -o euler_c.so
 c = ctypes.cdll.LoadLibrary('euler_c.so')
@@ -39,7 +40,7 @@ def arePermutations(a, b):
     lb = sorted(str(b))
     for ia, ib in zip(la, lb):
         if ia != ib: return False
-    return len(la)==len(lb)
+    return len(la) == len(lb)
 
 
 def sigma0(n_n):
@@ -166,7 +167,6 @@ def yieldFibonnacciNumber(n_n, startFrom=0):
 
 
 def isFermetPrime(p):
-    from random import randint
     for j in xrange(5):
         a = randint(1, p - 1)
         if pow(a, p - 1, p) != 1: return False
