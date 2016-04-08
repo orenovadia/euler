@@ -28,7 +28,7 @@ def Dnsquare(l):
 
 
 def Dn(l):
-    return (reduce(lambda x, y: x * (y + 1), [1] + l))
+    return reduce(lambda x, y: x * (y + 1), [1] + l)
 
 
 def totient(p1, p2):
@@ -56,9 +56,9 @@ def sigmakOfN2(k, n_n):
     counts = [len(list(group)) for key, group in groupby(prm)]
     prm = list(set(prm))
     s = 1
-    for i, pow in enumerate(counts):
+    for i, _pow in enumerate(counts):
         p = prm[i]
-        s *= (p ** ((pow + 1) * k) - 1) / (p ** k - 1)
+        s *= (p ** ((_pow + 1) * k) - 1) / (p ** k - 1)
     return s
 
 
@@ -103,7 +103,7 @@ def primesFromMtoN(M, N, prmCheck):
     pp = M
     tp = prmCheck[:bisect(prmCheck, int(sqrtlim))]  # test primes
     size = N - M + 1
-    sieve = [True] * (size)
+    sieve = [True] * size #no sograim
     i = 0
     for i in xrange(size):
         k = i + M
@@ -633,7 +633,7 @@ def primesfrom2to(n_n):
 
 
 def atkins13(limit=1000000):
-    '''use sieve of atkins to find primes <= limit.'''
+    """use sieve of atkins to find primes <= limit."""
     primes = [0] * limit
 
     # n_n = 3x^2 + y^2 section
