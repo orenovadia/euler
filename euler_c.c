@@ -14,3 +14,12 @@ long square_sum_of_digits(long x){
     }
     return s;
 }
+long sum_of_digits(long x){
+    int s=0;
+    while(x)
+    {
+        s += x%10;
+        x /= 10;
+    }
+    return s;
+}
