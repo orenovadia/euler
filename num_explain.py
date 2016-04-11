@@ -1,3 +1,4 @@
+#!/usr/bin/python
 '''
 python num_explain.py 13
 will print information about 13
