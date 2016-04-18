@@ -33,3 +33,4 @@ if __name__ == '__main__':
         print 'Permutations    %-14s %-14s: %s' % (a, b, eulertools.arePermutations(a, b))
         print '-' * 50
     print '%' * 50
+
