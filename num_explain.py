@@ -2,6 +2,7 @@
 '''
 python num_explain.py 13
 will print information about 13
+@author: oren
 '''
 import gmpy2
 import itertools
