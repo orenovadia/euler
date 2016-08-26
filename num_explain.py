@@ -2,6 +2,7 @@
 '''
 python num_explain.py 13
 will print information about 13
+@author: oren
 '''
 import gmpy2
 import itertools
@@ -33,3 +34,4 @@ if __name__ == '__main__':
         print 'Permutations    %-14s %-14s: %s' % (a, b, eulertools.arePermutations(a, b))
         print '-' * 50
     print '%' * 50
+
