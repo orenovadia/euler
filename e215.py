@@ -1,4 +1,7 @@
+from collections import defaultdict
 from itertools import combinations_with_replacement
+
+from cachetools import cached
 from numpy import linalg as liniag
 from pprint import pprint
 
@@ -96,9 +99,48 @@ class LGraph(object):
         return liniag.matrix_power(self.mat, p)
 
 
+class NGraph(object):
+    def __init__(self, n):
+        super(NGraph, self).__init__()
+        self.n = n
+        self._neighbors = defaultdict(set)
+
+    def add_edge(self, i, j):
+        self._neighbors[i].add(j)
+        self._neighbors[j].add(i)
+
+    def neighbors_of(self, i):
+        return self._neighbors[i]
+
+
 def main(width, height):
     # create layer permutations
     p = Permutations(width)
+    solve_with_dp(height, p)
+    # solve_with_matrix(height, p)
+
+
+@cached(dict())
+def ways(g, layer, height):
+    if height == 0:
+        return 1
+    if layer == -1:
+        neigh = xrange(g.n)
+    else:
+        neigh = g.neighbors_of(layer)
+    ss = 0
+    for l in neigh:
+        ss += ways(g, l, height - 1)
+    return ss
+
+
+def solve_with_dp(height, p):
+    g = NGraph(p.n)
+    populate_graph(g, p)
+    print 'solutions cached:', ways(g, -1, height)
+
+
+def solve_with_matrix(height, p):
     g = LGraph(p.n)
     populate_graph(g, p)
     print 'finished populating graph'
@@ -119,4 +161,5 @@ def populate_graph(g, p):
 
 
 if __name__ == '__main__':
+    main(9, 3)
     main(32, 10)
