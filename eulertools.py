@@ -10,6 +10,7 @@ if load_c_lib:
     square_sum_of_digits = c.square_sum_of_digits
     c_sum_of_digits = c.sum_of_digits
 
+
 def sum_of_digits(n):
     return sum(int(i) for i in str(n))
 
@@ -35,6 +36,30 @@ def Dn(l):
 
 def totient(p1, p2):
     return (p1 - 1) * (p2 - 1)
+
+
+def unique_permutations(elements):
+    def perm_unique_helper(list_unique, result_list, d):
+        if d < 0:
+            yield tuple(result_list)
+        else:
+            for i in list_unique:
+                if i.occurrences > 0:
+                    result_list[d] = i.value
+                    i.occurrences -= 1
+                    for g in perm_unique_helper(list_unique, result_list, d - 1):
+                        yield g
+                    i.occurrences += 1
+
+    class UniqueElement(object):
+        def __init__(self, value, occurrences):
+            self.value = value
+            self.occurrences = occurrences
+
+    eset = set(elements)
+    listunique = [UniqueElement(elem, elements.count(elem)) for elem in eset]
+    u = len(elements)
+    return perm_unique_helper(listunique, [0] * u, u - 1)
 
 
 def arePermutations(a, b):
@@ -105,7 +130,7 @@ def primesFromMtoN(M, N, prmCheck):
     pp = M
     tp = prmCheck[:bisect(prmCheck, int(sqrtlim))]  # test primes
     size = N - M + 1
-    sieve = [True] * size #no sograim
+    sieve = [True] * size  # no sograim
     i = 0
     for i in xrange(size):
         k = i + M

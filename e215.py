@@ -1,13 +1,14 @@
 from collections import defaultdict
 from itertools import combinations_with_replacement
 
+import numpy as np
 from cachetools import cached
 from numpy import linalg as liniag
-from pprint import pprint
 
-import numpy as np
+from euler.eulertools import unique_permutations
 
 DT = np.int64
+ANY_LAYER = None
 
 
 def cum_sum(l):
@@ -19,38 +20,11 @@ def cum_sum(l):
     return cum_sum_list
 
 
-class unique_element:
-    def __init__(self, value, occurrences):
-        self.value = value
-        self.occurrences = occurrences
-
-
-def perm_unique(elements):
-    eset = set(elements)
-    listunique = [unique_element(i, elements.count(i)) for i in eset]
-    u = len(elements)
-    return perm_unique_helper(listunique, [0] * u, u - 1)
-
-
-def perm_unique_helper(listunique, result_list, d):
-    if d < 0:
-        yield tuple(result_list)
-    else:
-        for i in listunique:
-            if i.occurrences > 0:
-                result_list[d] = i.value
-                i.occurrences -= 1
-                for g in perm_unique_helper(listunique, result_list, d - 1):
-                    yield g
-                i.occurrences += 1
-
-
 class Permutations(object):
     def __init__(self, width):
         self.width = width
         self.possibilities = self._create_possibilities(width)
         print 'finished possibilities, got:', len(self.possibilities)
-        pprint(self.possibilities)
         self.permutations = self._create_permutations(self.possibilities)
         self.n = len(self.permutations)
         print 'finished permutations, got:', self.n
@@ -81,7 +55,7 @@ class Permutations(object):
     def _create_permutations(self, possibilities):
         perms = set()
         for possibility in possibilities:
-            for p in perm_unique(possibility):
+            for p in unique_permutations(possibility):
                 perms.add(p)
         return sorted(perms)
 
@@ -104,6 +78,7 @@ class NGraph(object):
         super(NGraph, self).__init__()
         self.n = n
         self._neighbors = defaultdict(set)
+        self._neighbors[ANY_LAYER] = set(xrange(n))
 
     def add_edge(self, i, j):
         self._neighbors[i].add(j)
@@ -124,12 +99,8 @@ def main(width, height):
 def ways(g, layer, height):
     if height == 0:
         return 1
-    if layer == -1:
-        neigh = xrange(g.n)
-    else:
-        neigh = g.neighbors_of(layer)
     ss = 0
-    for l in neigh:
+    for l in g.neighbors_of(layer):
         ss += ways(g, l, height - 1)
     return ss
 
@@ -137,7 +108,7 @@ def ways(g, layer, height):
 def solve_with_dp(height, p):
     g = NGraph(p.n)
     populate_graph(g, p)
-    print 'solutions cached:', ways(g, -1, height)
+    print 'solutions cached:', ways(g, ANY_LAYER, height)
 
 
 def solve_with_matrix(height, p):
