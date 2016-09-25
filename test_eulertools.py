@@ -4,6 +4,7 @@ Test eulertools
 '''
 import unittest
 import gmpy2
+
 import mock
 
 import eulertools
