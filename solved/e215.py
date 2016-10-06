@@ -20,7 +20,37 @@ def cum_sum(l):
     return cum_sum_list
 
 
-class Permutations(object):
+class NewPermutations(object):
+    bricks = (2, 3)
+    min_brick = min(bricks)
+
+    def __init__(self, width):
+        super(NewPermutations, self).__init__()
+        self.width = width
+        self.permutations = list(self._create_permutations(width))
+        self.n = len(self.permutations)
+        self.crack_places = map(self._bricks_to_crack_sets, self.permutations)
+
+    @staticmethod
+    def _bricks_to_crack_sets(permutation):
+        crack_set = set()
+        s = 0
+        for brick in permutation[:-1]:
+            s += brick
+            crack_set.add(s)
+        return crack_set
+
+    def _create_permutations(self, width):
+        if width in self.bricks:
+            yield (width,)
+        elif width < self.min_brick:
+            raise StopIteration()
+        for brick in self.bricks:
+            for possible_rest_of_layer in self._create_permutations(width - brick):
+                yield (brick,) + possible_rest_of_layer
+
+
+class _Permutations(object):
     def __init__(self, width):
         self.width = width
         self.possibilities = self._create_possibilities(width)
@@ -57,8 +87,10 @@ class Permutations(object):
         for possibility in possibilities:
             for p in unique_permutations(possibility):
                 perms.add(p)
-        return sorted(perms)
+        return list(perms)
 
+
+Permutations = NewPermutations
 
 class LGraph(object):
     def __init__(self, n):
