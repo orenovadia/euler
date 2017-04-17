@@ -19,6 +19,7 @@ def analyze_number(n):
     print 'Cube   root     %-15s' % (n ** (1.0 / 3.0))
     print 'Sum of digits   %-15s' % eulertools.sum_of_digits(n)
     print 'Prime factors   %-15s' % eulertools.primeFactors(n)
+    print '# Factors       %-15s' % len(eulertools.divisorGenerator(n))
     print 'Factors         %-15s' % eulertools.divisorGenerator(n)
 
 
