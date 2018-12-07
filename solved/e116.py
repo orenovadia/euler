@@ -26,3 +26,26 @@ print n_sequences(N, (4, 1,)) + n_sequences(N, (3, 1)) + n_sequences(N, (2, 1)) 
 # question 117:
 N = 50
 print n_sequences(N, (4, 3, 2, 1,))
+
+# question 114
+N = 50
+
+
+@cached
+def n_sequences_spaced(score, possible_scores, prev_was_one):
+    if score == 0:
+        return 1
+    if score < 0:
+        return 0
+
+    if prev_was_one:
+        return sum(n_sequences_spaced(score - play, possible_scores, play == 1)
+                   for play in possible_scores)
+    else:
+        return n_sequences_spaced(score - 1, possible_scores, True)
+
+
+N = 50
+tiles = set(range(1, N + 1)) - {2}
+tiles = tuple(reversed(sorted(tiles)))
+print n_sequences_spaced(N, tiles, True)
