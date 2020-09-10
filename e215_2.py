@@ -1,8 +1,7 @@
-from time import time
-
 from typing import Tuple, Set, List
 
 BRICK_SIZES = (2, 3)
+
 
 def main(h=10, w=32):
     possible_layers = list(gen_layers(w))
@@ -81,6 +80,4 @@ def calc_ways(adjacency, h):
 
 
 if __name__ == '__main__':
-    st = time()
     main()
-    print('time: ', time() - st)
