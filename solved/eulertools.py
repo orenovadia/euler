@@ -2,8 +2,9 @@ from math import sqrt, factorial
 from bisect import bisect
 import ctypes
 #gcc -Wall -Wextra -O -ansi -pedantic -shared euler_c.c -o euler_c.so
-c = ctypes.cdll.LoadLibrary('euler_c.so')
-square_sum_of_digits = c.square_sum_of_digits
+if False:
+    c = ctypes.cdll.LoadLibrary('euler_c.so')
+    square_sum_of_digits = c.square_sum_of_digits
 
 
 def divisorGenerator(n_n):

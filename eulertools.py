@@ -1,4 +1,3 @@
-import ctypes
 from bisect import bisect
 from math import sqrt, factorial
 from random import randint
@@ -6,6 +5,7 @@ from random import randint
 # gcc -Wall -Wextra -O -ansi -pedantic -shared euler_c.c -o euler_c.so
 load_c_lib = False
 if load_c_lib:
+    import ctypes
     c = ctypes.cdll.LoadLibrary('./euler_c.so')
     square_sum_of_digits = c.square_sum_of_digits
     c_sum_of_digits = c.sum_of_digits

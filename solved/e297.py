@@ -1,4 +1,5 @@
 from itertools import takewhile
+from linecache import cache
 
 from cachetools import cached
 
@@ -18,7 +19,7 @@ def e267(n):
 
     n_f_to_triangle_sum = {}
 
-    @cached(n_f_to_triangle_sum)
+    @cache(n_f_to_triangle_sum)
     def sigma_z_up_to(n_f):
         if n_f == 0:
             return 1
